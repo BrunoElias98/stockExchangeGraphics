@@ -1,0 +1,24 @@
+.Grid {
+    margin: 10% 0;
+}
+
+.buttonMoreInfo {
+    border: 1px solid black !important;
+    width: 25px !important; 
+    height: 25px !important; 
+    border-radius: 100% !important;
+}
+
+
+i {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-bottom: 3.5px;
+}
+  
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
