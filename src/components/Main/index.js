@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Grid from '../Grid'
+import FormControl from '../FormControl'
+import ButtonComponent from '../Button'
+import { InputGroup } from 'react-bootstrap'
 
 import api from '../../services/api'
 
@@ -23,6 +26,21 @@ export default function Main() {
         <>
             <h1>Soft Expert</h1>
             <h2>Soft Exchange Challenge - Bruno Elias de Souza</h2>
+            
+            <InputGroup className="mb-3">
+                <FormControl
+                    type='text'
+                    placeholder='Search'
+                    className='formControl-search'
+                />
+                <InputGroup.Append>
+                    <ButtonComponent
+                        variant='secondary'
+                        textButton='Comparar'
+                        isAllow={false}
+                    />
+                </InputGroup.Append>
+            </InputGroup>
 
             <Grid
                 headerGrid={header}

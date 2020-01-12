@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
 import Header from './header'
-import ButtonGrid from '../Button'
+import ButtonComponent from '../Button'
 import FormCheck from '../FormCheck'
 
 export default function Grid(props) {
@@ -24,7 +24,7 @@ export default function Grid(props) {
                             <td>{company.symbol}</td>
                             <td>{company.name}</td>
                             <td>R${company.price}</td>
-                            <td>{isClickable ? <Link to={`/Graffic/${company.symbol}`}><ButtonGrid variant={variantButton} size={sizeButton} className={classNameButton} isArrow={isArrow} /></Link> : ''}</td>
+                            <td>{isClickable ? <Link to={`/Graffic/${company.symbol}`}><ButtonComponent variant={variantButton} size={sizeButton} className={classNameButton} isArrow={isArrow} /></Link> : ''}</td>
                         </tr>
                     ))
                 )}

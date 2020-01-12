@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import ButtonGrid from '../Button'
+import ButtonComponent from '../Button'
 
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -144,7 +144,7 @@ export default function Graffic(props) {
             <HighchartsReact highcharts={Highcharts} options={optionsConsolidatedIncome} />
 
             <Link to='/'>
-                <ButtonGrid variant='light' size='sm' isArrow={false} textButton='Voltar' ></ButtonGrid>
+                <ButtonComponent variant='outline-dark' size='sm' isArrow={false} textButton='Voltar' className='button-back' ></ButtonComponent>
             </Link>
         </>
     ) 
