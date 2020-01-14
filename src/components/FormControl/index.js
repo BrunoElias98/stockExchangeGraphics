@@ -6,6 +6,10 @@ export default function FormControl(props) {
     const { type, placeholder, className } = props
 
     return (
-        <Form.Control type={type} placeholder={placeholder} className={className} />
+        <Form.Control 
+            type={type} 
+            placeholder={placeholder} 
+            className={className} 
+        />
     )
 }
