@@ -8,7 +8,7 @@ import HighchartsReact from 'highcharts-react-official';
 import api from '../../services/api'
 import { formatNumber } from '../../utils'
 
-export default function Graffic(props) {
+export default function Graph(props) {
 
     const url = props.location.pathname.split('/')
     const idCompany = url[2]
@@ -23,7 +23,7 @@ export default function Graffic(props) {
         }
 
         loadInfos()
-    }, [])
+    }, [idCompany])
     
     var revenue = []
     var revenueGrowth = []
@@ -59,9 +59,18 @@ export default function Graffic(props) {
         },
         series: [
             {
+                name: 'Receita',
                 data: revenue.length !== 0 ?  revenue.map(revenue => ( [ revenue ] ))  : ''
             }
-        ]
+        ],
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 2010
+            }
+        },
     }
 
     const optionsRevenueGrowth = {
@@ -73,9 +82,18 @@ export default function Graffic(props) {
         },
         series: [
             {
+                name: 'Crescimento da Receita',
                 data: revenueGrowth.length !== 0 ? revenueGrowth.map(revenueGrowth => ( [ revenueGrowth ] )) : ''
             }
-        ]
+        ],
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 2010
+            }
+        },
     }
 
     const optionsOperatingExpenses = {
@@ -87,9 +105,18 @@ export default function Graffic(props) {
         },
         series: [
             {
+                name: 'Despesas Operacionais',
                 data: operatingExpenses.length !== 0 ? operatingExpenses.map(operatingExpenses => ( [ operatingExpenses ] )) : ''
             }
-        ]
+        ],
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 2010
+            }
+        },
     }
 
     const optionsEbtidaMargin = {
@@ -101,9 +128,18 @@ export default function Graffic(props) {
         },
         series: [
             {
+                name: 'Margem EBTIDA',
                 data: ebitdaMargin.length !== 0 ? ebitdaMargin.map(ebitdaMargin => ( [ ebitdaMargin ] )) : ''
             }
-        ]
+        ],
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 2010
+            }
+        },
     }
 
     const optionsEbtida = {
@@ -115,9 +151,18 @@ export default function Graffic(props) {
         },
         series: [
             {
+                name: 'EBTIDA',
                 data: ebitda.length !== 0 ? ebitda.map(ebitda => ( [ ebitda ] )) : '' 
             }
-        ]
+        ],
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 2010
+            }
+        },
     }
 
     const optionsConsolidatedIncome = {
@@ -129,9 +174,18 @@ export default function Graffic(props) {
         },
         series: [
             {
+                name: 'Renda Consolidada',
                 data: consolidatedIncome.length !== 0 ? consolidatedIncome.map(consolidatedIncome => ( [ consolidatedIncome ] )) : ''
             }
-        ]
+        ],
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 2010
+            }
+        },
     }
 
     return (

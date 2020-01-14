@@ -24,7 +24,7 @@ export default function Grid(props) {
                             <td>{company.symbol}</td>
                             <td>{company.name}</td>
                             <td>R${company.price}</td>
-                            <td>{isClickable ? <Link to={`/Graffic/${company.symbol}`}><ButtonComponent variant={variantButton} size={sizeButton} className={classNameButton} isArrow={isArrow} /></Link> : ''}</td>
+                            <td>{isClickable ? <Link to={`/Graph/${company.symbol}`}><ButtonComponent variant={variantButton} size={sizeButton} className={classNameButton} isArrow={isArrow} /></Link> : ''}</td>
                         </tr>
                     ))
                 )}
