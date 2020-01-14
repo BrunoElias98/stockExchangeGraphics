@@ -11,13 +11,13 @@ import { formatNumber } from '../../utils'
 export default function Graffic(props) {
 
     const url = props.location.pathname.split('/')
-    const urlSeparateParam = url[2]
+    const idCompany = url[2]
 
     const [info, setInfo] = useState([])
     
     useEffect(() => {
         async function loadInfos() {
-            const response = await api.get(`/financials/income-statement/${urlSeparateParam}`)
+            const response = await api.get(`/financials/income-statement/${idCompany}`)
          
             setInfo(response.data.financials)
         }
@@ -59,7 +59,7 @@ export default function Graffic(props) {
         },
         series: [
             {
-                data: revenue.length !== 0 ? [ revenue[0], revenue[1], revenue[2], revenue[3], revenue[4], revenue[5], revenue[6], revenue[7], revenue[8], revenue[9], revenue[10] ] : ''
+                data: revenue.length !== 0 ?  revenue.map(revenue => ( [ revenue ] ))  : ''
             }
         ]
     }
@@ -73,7 +73,7 @@ export default function Graffic(props) {
         },
         series: [
             {
-                data: revenueGrowth.length !== 0 ? [ revenueGrowth[0], revenueGrowth[1], revenueGrowth[2], revenueGrowth[3], revenueGrowth[4], revenueGrowth[5], revenueGrowth[6], revenueGrowth[7], revenueGrowth[8], revenueGrowth[9], revenueGrowth[10] ] : ''
+                data: revenueGrowth.length !== 0 ? revenueGrowth.map(revenueGrowth => ( [ revenueGrowth ] )) : ''
             }
         ]
     }
@@ -87,7 +87,7 @@ export default function Graffic(props) {
         },
         series: [
             {
-                data: operatingExpenses.length !== 0 ? [ operatingExpenses[0], operatingExpenses[1], operatingExpenses[2], operatingExpenses[3], operatingExpenses[4], operatingExpenses[5], operatingExpenses[6], operatingExpenses[7], operatingExpenses[8], operatingExpenses[9], operatingExpenses[10] ] : ''
+                data: operatingExpenses.length !== 0 ? operatingExpenses.map(operatingExpenses => ( [ operatingExpenses ] )) : ''
             }
         ]
     }
@@ -101,7 +101,7 @@ export default function Graffic(props) {
         },
         series: [
             {
-                data: ebitdaMargin.length !== 0 ? [ ebitdaMargin[0], ebitdaMargin[1], ebitdaMargin[2], ebitdaMargin[3], ebitdaMargin[4], ebitdaMargin[5], ebitdaMargin[6], ebitdaMargin[7], ebitdaMargin[8], ebitdaMargin[9], ebitdaMargin[10] ] : ''
+                data: ebitdaMargin.length !== 0 ? ebitdaMargin.map(ebitdaMargin => ( [ ebitdaMargin ] )) : ''
             }
         ]
     }
@@ -115,7 +115,7 @@ export default function Graffic(props) {
         },
         series: [
             {
-                data: ebitda.length !== 0 ? [ ebitda[0], ebitda[1], ebitda[2], ebitda[3], ebitda[4], ebitda[5], ebitda[6], ebitda[7], ebitda[8], ebitda[9], ebitda[10] ] : ''
+                data: ebitda.length !== 0 ? ebitda.map(ebitda => ( [ ebitda ] )) : '' 
             }
         ]
     }
@@ -129,7 +129,7 @@ export default function Graffic(props) {
         },
         series: [
             {
-                data: consolidatedIncome.length !== 0 ? [ consolidatedIncome[0], consolidatedIncome[1], consolidatedIncome[2], consolidatedIncome[3], consolidatedIncome[4], consolidatedIncome[5], consolidatedIncome[6], consolidatedIncome[7], consolidatedIncome[8], consolidatedIncome[9], consolidatedIncome[10] ] : ''
+                data: consolidatedIncome.length !== 0 ? consolidatedIncome.map(consolidatedIncome => ( [ consolidatedIncome ] )) : ''
             }
         ]
     }
