@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap'
 
 export default function FormCheck(props) {
 
-    const { type, id, label, custom } = props
+    const { type, id, label, custom, onChange } = props
 
     return (
         <Form.Check
@@ -11,6 +11,7 @@ export default function FormCheck(props) {
             type={type}
             id={id}
             label={label}
+            onChange={onChange}
         />
     )
 }
