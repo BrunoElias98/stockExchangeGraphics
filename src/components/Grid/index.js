@@ -7,7 +7,11 @@ import FormCheck from '../FormCheck'
 
 export default function Grid(props) {
 
-    const { headerGrid, company, isCheckable, type, label, isClickable, variantButton, sizeButton, classNameButton, isArrow, custom } = props
+    const { headerGrid, company, isCheckable, type, label, isClickable, variantButton, sizeButton, classNameButton, isArrow, custom, getSymbolCompany } = props
+   
+    function handleChange(companyId) {
+        return getSymbolCompany(companyId)
+    }
 
     return (
         <Table striped hover className='Grid'>
@@ -20,7 +24,7 @@ export default function Grid(props) {
                 {company && (
                     company.map(company => (
                         <tr key={company.symbol}>
-                            <td>{isCheckable ? <FormCheck custom={custom} type={type} id={`custom-${company.symbol}`} label={label} /> : ''}</td>
+                            <td>{isCheckable ? <FormCheck custom={custom} type={type} id={`custom-${company.symbol}`} label={label} onChange={() => handleChange(company.symbol)} /> : ''}</td>
                             <td>{company.symbol}</td>
                             <td>{company.name}</td>
                             <td>R${company.price}</td>
