@@ -10,21 +10,71 @@ import { formatNumber } from '../../utils'
 
 export default function Graph(props) {
     
-    const url = props.location.pathname.split('/')
-    const idCompany = url[2]
+    const url = props.location.pathname.split('/Graph/')
+    const idCompany = url[1]
 
-    const [info, setInfo] = useState([])
+    const [infoCompanies, setInfoCompanies] = useState([])
+    const [infoCompany, setInfoCompany] = useState([])
+    const [companyName, setCompanyName] = useState('')
     
     useEffect(() => {
         async function loadInfos() {
             const response = await api.get(`/financials/income-statement/${idCompany}`)
          
-            setInfo(response.data.financials)
+            if(response.data.financialStatementList){
+                setInfoCompanies(response.data.financialStatementList)
+            } else {
+                setInfoCompany(response.data.financials)
+                setCompanyName(response.data.symbol)
+            }
         }
 
         loadInfos()
     }, [idCompany])
-    
+
+    var seriesRevenue = []
+    var seriesRevenueGrowth = []
+    var seriesOperatingExpenses = []
+    var seriesEbtidaMargin = []
+    var seriesEbitda = []
+    var seriesConsolidatedIncome = []
+
+    infoCompanies && (
+        infoCompanies.map(infoCompanies => {
+            seriesRevenue.push({
+                name: infoCompanies.symbol,
+                data: infoCompanies.financials.map(revenue => formatNumber(revenue.Revenue) )
+            })
+
+            seriesRevenueGrowth.push({
+                name: infoCompanies.symbol,
+                data: infoCompanies.financials.map(revenueGrowth => formatNumber(revenueGrowth['Revenue Growth']) )
+            })
+
+            seriesOperatingExpenses.push({
+                name: infoCompanies.symbol,
+                data: infoCompanies.financials.map(operatingExpenses => formatNumber(operatingExpenses['Operating Expenses']) )
+            })
+
+            seriesEbtidaMargin.push({
+                name: infoCompanies.symbol,
+                data: infoCompanies.financials.map(ebitdaMargin => formatNumber(ebitdaMargin['EBITDA Margin']) ) 
+            })
+
+            seriesEbitda.push({
+                name: infoCompanies.symbol,
+                data: infoCompanies.financials.map(ebitda => formatNumber(ebitda.EBITDA) )
+            })
+
+            seriesConsolidatedIncome.push({
+                name: infoCompanies.symbol,
+                data: infoCompanies.financials.map(consolidatedIncome => formatNumber(consolidatedIncome['Consolidated Income']) )
+            })
+
+            return 0
+        })
+    )
+
     var revenue = []
     var revenueGrowth = []
     var operatingExpenses = []
@@ -32,38 +82,37 @@ export default function Graph(props) {
     var ebitda = []
     var consolidatedIncome = []
 
-    info && (
-        info.map(info => {
+    infoCompany && (
+        infoCompany.map(infoCompany => {
 
-        revenue.push(formatNumber(info.Revenue))
+        revenue.push(formatNumber(infoCompany.Revenue))
 
-        revenueGrowth.push(formatNumber(info['Revenue Growth']))
+        revenueGrowth.push(formatNumber(infoCompany['Revenue Growth']))
 
-        operatingExpenses.push(formatNumber(info['Operating Expenses']))
+        operatingExpenses.push(formatNumber(infoCompany['Operating Expenses']))
 
-        ebitdaMargin.push(formatNumber(info['EBITDA Margin']))
+        ebitdaMargin.push(formatNumber(infoCompany['EBITDA Margin']))
 
-        ebitda.push(formatNumber([info.EBITDA]))
+        ebitda.push(formatNumber([infoCompany.EBITDA]))
 
-        consolidatedIncome.push(formatNumber([info['Consolidated Income']]))
+        consolidatedIncome.push(formatNumber([infoCompany['Consolidated Income']]))
 
         return 0
     }))
     
     const charts = [
-        revenue = {
+        seriesRevenue = {
             chart: {
                 type: 'spline'
             },
             title: {
                 text: 'Receita'
             },
-            series: [
-                {
-                    name: 'Receita',
-                    data: revenue.length !== 0 ?  revenue.map(revenue => ( [ revenue ] ))  : ''
-                }
-            ],
+            series: seriesRevenue.length !== 0 ? seriesRevenue : 
+            {
+                name : companyName,
+                data : revenue.map(revenue => ( [ revenue ] ))
+            },
             plotOptions: {
                 series: {
                     label: {
@@ -74,19 +123,18 @@ export default function Graph(props) {
             },
         },
     
-        revenueGrowth = {
+        seriesRevenueGrowth = {
             chart: {
                 type: 'spline'
             },
-                title: {
+            title: {
                 text: 'Crescimento da Receita'
             },
-            series: [
-                {
-                    name: 'Crescimento da Receita',
-                    data: revenueGrowth.length !== 0 ? revenueGrowth.map(revenueGrowth => ( [ revenueGrowth ] )) : ''
-                }
-            ],
+            series: seriesRevenueGrowth.length !== 0 ? seriesRevenueGrowth : 
+            {
+                name : companyName,
+                data : revenueGrowth.map(revenueGrowth => ( [ revenueGrowth ] ))
+            },
             plotOptions: {
                 series: {
                     label: {
@@ -94,22 +142,21 @@ export default function Graph(props) {
                     },
                     pointStart: 2010
                 }
-            },
+            }
         },
     
-        operatingExpenses = {
+        seriesOperatingExpenses = {
             chart: {
                 type: 'spline'
             },
-                title: {
+            title: {
                 text: 'Despesas Operacionais'
             },
-            series: [
-                {
-                    name: 'Despesas Operacionais',
-                    data: operatingExpenses.length !== 0 ? operatingExpenses.map(operatingExpenses => ( [ operatingExpenses ] )) : ''
-                }
-            ],
+            series: seriesOperatingExpenses.length !== 0 ? seriesOperatingExpenses : 
+            {
+                name : companyName,
+                data : operatingExpenses.map(operatingExpenses => ( [ operatingExpenses ] ))
+            },
             plotOptions: {
                 series: {
                     label: {
@@ -117,22 +164,21 @@ export default function Graph(props) {
                     },
                     pointStart: 2010
                 }
-            },
+            }
         },
     
-        ebitdaMargin = {
+        seriesEbtidaMargin = {
             chart: {
                 type: 'spline'
             },
-                title: {
+            title: {
                 text: 'Margem EBTIDA'
             },
-            series: [
-                {
-                    name: 'Margem EBTIDA',
-                    data: ebitdaMargin.length !== 0 ? ebitdaMargin.map(ebitdaMargin => ( [ ebitdaMargin ] )) : ''
-                }
-            ],
+            series: seriesEbtidaMargin.length !== 0 ? seriesEbtidaMargin : 
+            {
+                name : companyName,
+                data : ebitdaMargin.map(ebitdaMargin => ( [ ebitdaMargin ] ))
+            },
             plotOptions: {
                 series: {
                     label: {
@@ -141,21 +187,21 @@ export default function Graph(props) {
                     pointStart: 2010
                 }
             },
+            
         },
-    
-        ebitda = {
+
+        seriesEbitda = {
             chart: {
                 type: 'spline'
             },
-                title: {
+            title: {
                 text: 'EBTIDA'
             },
-            series: [
-                {
-                    name: 'EBTIDA',
-                    data: ebitda.length !== 0 ? ebitda.map(ebitda => ( [ ebitda ] )) : '' 
-                }
-            ],
+            series: seriesEbitda.length !== 0 ? seriesEbitda : 
+            {
+                name : companyName,
+                data : ebitda.map(ebitda => ( [ ebitda ] ))
+            },
             plotOptions: {
                 series: {
                     label: {
@@ -163,22 +209,21 @@ export default function Graph(props) {
                     },
                     pointStart: 2010
                 }
-            },
+            },  
         },
-    
-        consolidatedIncome = {
+
+        seriesConsolidatedIncome = {
             chart: {
                 type: 'spline'
             },
-                title: {
+            title: {
                 text: 'Renda Consolidada'
             },
-            series: [
-                {
-                    name: 'Renda Consolidada',
-                    data: consolidatedIncome.length !== 0 ? consolidatedIncome.map(consolidatedIncome => ( [ consolidatedIncome ] )) : ''
-                }
-            ],
+            series: seriesConsolidatedIncome.length !== 0 ? seriesConsolidatedIncome : 
+            {
+                name : companyName,
+                data : consolidatedIncome.map(consolidatedIncome => ( [ consolidatedIncome ] ))
+            },
             plotOptions: {
                 series: {
                     label: {
