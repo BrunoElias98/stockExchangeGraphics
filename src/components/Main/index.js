@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { InputGroup } from 'react-bootstrap'
+
 import Grid from '../Grid'
 import FormControl from '../FormControl'
 import ButtonComponent from '../Button'
-import { InputGroup } from 'react-bootstrap'
 
 import api from '../../services/api'
 
@@ -43,7 +44,6 @@ export default function Main() {
 
     return (
         <>
-            <h1>Soft Expert</h1>
             <h2>Soft Exchange Challenge - Bruno Elias de Souza</h2>
             
             <InputGroup className="mb-3">
