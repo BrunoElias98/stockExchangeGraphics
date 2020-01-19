@@ -39,9 +39,13 @@ export default function Main() {
 
     const header = ['', 'Abreviação Empresa', 'Nome', 'Preço', '']
 
-    function getSymbolCompany(value) {
+    function getSymbolCompany(value, checked) {
         setCompanyURL(prevState => {
-            return [...prevState, value]
+            if(checked === false){
+                return prevState.filter(element => element !== value)
+            } else {
+                return [...prevState, value]
+            }
         })
     }
 
