@@ -237,13 +237,15 @@ export default function Graph(props) {
 
     return (
         <>
-            {charts.map((chart, index) => 
-                <HighchartsReact key={index} highcharts={Highcharts} options={chart} />  
-            )}
+            <div className='highcharts-align'>
+                {charts.map((chart, index) => 
+                    <HighchartsReact key={index} highcharts={Highcharts} options={chart} />  
+                )}
 
-            <Link to='/'>
-                <ButtonComponent variant='outline-dark' size='sm' isArrow={false} textButton='Voltar' className='button-back' ></ButtonComponent>
-            </Link>
+                <Link to='/'>
+                    <ButtonComponent variant='outline-dark' size='sm' isArrow={false} textButton='Voltar' className='button-back' ></ButtonComponent>
+                </Link>
+            </div>
         </>
     ) 
 }
