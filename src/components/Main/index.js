@@ -35,13 +35,10 @@ export default function Main() {
 
     const header = ['', 'Abreviação Empresa', 'Nome', 'Preço', '']
 
-    let arraySymbol = companyURL
-
     function getSymbolCompany(value) {
-        
-        arraySymbol.push(value)
-        
-        setCompanyURL(arraySymbol)
+        setCompanyURL(prevState => {
+            return [...prevState, value];
+        })
     }
 
     return (
@@ -57,7 +54,7 @@ export default function Main() {
                     onChange={filterList}
                 />
                 <InputGroup.Append>
-                    <Link to={`/Graph/${companyURL.toString()}`}>
+                    <Link to={`/Graph/${companyURL.join(',')}`}>
                         <ButtonComponent
                             variant='secondary'
                             textButton='Comparar'
