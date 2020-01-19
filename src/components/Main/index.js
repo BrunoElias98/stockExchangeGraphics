@@ -11,24 +11,27 @@ import api from '../../services/api'
 export default function Main() {
 
     const [company, setCompany] = useState([])
+    const [allCompany, setAllCompany] = useState([])
     const [companyURL, setCompanyURL] = useState([])
     
     function filterList(event) {
-        var updatedList = company
+        var updatedList = allCompany
 
         updatedList = updatedList.filter(function(item){
             return item.symbol.toLowerCase().search(
             event.target.value.toLowerCase()) !== -1
         })
-        
-        setCompany(updatedList)
+
+        setCompany(updatedList.slice(0 , 20))
     }
 
     useEffect(() => {
         async function loadCompany() {
             const response = await api.get('/company/stock/list')
-            
-            setCompany(response.data.symbolsList)
+
+            var arraySymbolsList = response.data.symbolsList.slice(0 , 20)
+            setCompany(arraySymbolsList)
+            setAllCompany(response.data.symbolsList)
         }
 
         loadCompany()
@@ -38,13 +41,13 @@ export default function Main() {
 
     function getSymbolCompany(value) {
         setCompanyURL(prevState => {
-            return [...prevState, value];
+            return [...prevState, value]
         })
     }
 
     return (
         <>
-            <h2>Soft Exchange Challenge - Bruno Elias de Souza</h2>
+            <h2 className='title-main'>Soft Exchange Challenge - Bruno Elias de Souza</h2>
             
             <InputGroup className="mb-3">
                 <FormControl
