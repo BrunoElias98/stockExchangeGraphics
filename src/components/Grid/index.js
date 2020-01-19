@@ -10,9 +10,10 @@ export default function Grid(props) {
     const { headerGrid, company, isCheckable, type, label, isClickable, variantButton, sizeButton, classNameButton, isArrow, custom, getSymbolCompany } = props
    
     function handleChange(companyId) {
-        return getSymbolCompany(companyId)
+        let checked =  document.getElementById(`custom-${companyId}`).checked
+        return getSymbolCompany(companyId, checked)
     }
-
+    
     return (
         <Table striped hover className='Grid'>
             <thead>
