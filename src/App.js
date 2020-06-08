@@ -9,7 +9,7 @@ import Routes from './routes'
 function App() {
   return (
     <>
-      <NavBar className='navbar-align' bgColor='dark' variant='dark' textNavbar='SoftExpert' fixed='top' />
+      <NavBar className='navbar-align' bgColor='dark' variant='dark' textNavbar='Stock Exchange Graphics' fixed='top' />
 
       <div className='container'>
         <Routes />

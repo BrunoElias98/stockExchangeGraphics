@@ -1,5 +1,4 @@
-## SoftExpert
-##### Projeto teste de conhecimento - Desenvolvedor Web
+##### Projeto de consulta a API da bolsa de valores.
 
 ##### Tecnologias utilizadas:
 
